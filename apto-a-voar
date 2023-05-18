@@ -1,0 +1,10 @@
+var anoAtual = prompt("Digite Ano Atual");
+var anoNascimento = prompt("Digite Ano de Nascimento");
+var resultadoIdade = (anoAtual - anoNascimento);
+
+if ((anoAtual - anoNascimento)>=16) {
+  alert("Você Tem " + resultadoIdade +  " Anos Parabéns Você já pode votar, vote consciente!")
+} else if (anoAtual - anoNascimento<16){
+
+alert("Que pena, Você ainda só tem " + resultadoIdade + " anos e ainda não pode votar!")
+}
