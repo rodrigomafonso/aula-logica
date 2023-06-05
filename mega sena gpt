@@ -1,0 +1,139 @@
+<head>
+  <title>Gerador de Sequência Aleatória</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333333;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: 0 auto;
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .numbers {
+      display: flex;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .number {
+      width: 50px;
+      height: 50px;
+      background-color: #333333;
+      color: #ffffff;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 10px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+    }
+
+    .number:hover {
+      cursor: pointer;
+      background-color: #555555;
+    }
+
+    .number.used {
+      background-color: #dddddd;
+      color: #999999;
+      cursor: default;
+    }
+
+    .number.disabled {
+      background-color: #aaaaaa;
+      color: #777777;
+      cursor: default;
+    }
+
+    .btn {
+      background-color: #333333;
+      color: #ffffff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background-color: #555555;
+    }
+
+    .btn.disabled {
+      background-color: #aaaaaa;
+      cursor: default;
+    }
+
+    .message {
+      margin-top: 10px;
+      color: #777777;
+    }
+  </style>
+</head>
+<body>
+  <h1>Gerador de Sequência Aleatória</h1>
+  <div class="container">
+    <div class="numbers" id="numbers"></div>
+    <button class="btn" id="generateBtn" onclick="generateNumbers()">Gerar Números</button>
+    <div class="message" id="message"></div>
+  </div>
+
+  <script>
+    var generatedNumbers = [];
+    var sequenceId = 1;
+
+    function generateNumbers() {
+      var numbersContainer = document.getElementById('numbers');
+      var generateBtn = document.getElementById('generateBtn');
+      var message = document.getElementById('message');
+
+      if (generatedNumbers.length === 60) {
+        message.innerText = 'Você já gerou todos os números.';
+        generateBtn.classList.add('disabled');
+        return;
+      }
+
+      var newNumbers = [];
+      while (newNumbers.length < 6) {
+        var randomNumber = getRandomNumber(1, 60);
+        if (!generatedNumbers.includes(randomNumber) && !newNumbers.includes(randomNumber)) {
+          newNumbers.push(randomNumber);
+        }
+      }
+
+      generatedNumbers = generatedNumbers.concat(newNumbers);
+
+      for (var i = 0; i < newNumbers.length; i++) {
+        var numberDiv = document.createElement('div');
+        numberDiv.innerText = newNumbers[i];
+        numberDiv.classList.add('number');
+        numberDiv.setAttribute('data-id', sequenceId);
+        numbersContainer.appendChild(numberDiv);
+        sequenceId++;
+      }
+
+      if (generatedNumbers.length === 60) {
+        message.innerText = 'Você gerou todos os números.';
+        generateBtn.classList.add('disabled');
+      }
+    }
+
+    function getRandomNumber(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+  </script>
+</body>
+</html>
